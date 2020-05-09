@@ -27,11 +27,10 @@ let gameplay = (function() {
     }
 
     function makeMove() {
-        console.log('making move')
         spots.forEach((spot) => {
             let [row, col] = spot.id.split(' ');
             spot.addEventListener('click', function() {
-                 gameplay.checkMove(row, col);
+                checkMove(row, col);
             })
         })        
     }
@@ -40,17 +39,45 @@ let gameplay = (function() {
         if (!!gameboard.board[row][col]) {
             console.log(`There is already a ${gameboard.board[row][col]} there.\nPick another spot`);
         } else {
-            gameboard.board[row][col] = this.piece || 'G'; //remove G for player piece
+            gameboard.board[row][col] = this.piece || 'G'; //sub G for player piece
             makeBoard.clearBoard();
-            _checkWin();
+            checkWin();
         }
     }
 
-    function _checkWin() {
-        if (false/* check win logic)*/) {
+    function checkWin() {
+        this.piece = 'G'; //sub G for player piece
 
+        const checkStraight = () => {
+            lines = []
+            for (let j=0; j<3; j++) {
+                let lineRow = [];
+                let lineCol = [];
+                for (let k=0; k<3; ++k) {
+                    lineRow.push(gameboard.board[j][k]);
+                    lineCol.push(gameboard.board[k][j]);
+                }
+                lines.push(lineRow, lineCol);
+            }
+            return lines.some(line => line.every(val => val == this.piece))
+        }
+        
+        const checkDiag = () => {
+            return (
+                (this.piece == gameboard.board[0][0] && 
+                this.piece == gameboard.board[1][1] &&
+                this.piece == gameboard.board[2][2]
+                ) ||
+                (this.piece == gameboard.board[0][2] && 
+                this.piece == gameboard.board[1][1] &&
+                this.piece == gameboard.board[2][0]
+                )
+            )
+        }
+
+        if (checkDiag() || checkStraight()) {
+            console.log('you won');
         } else {
-            console.log('checked')
             //currentPlayer = (currentPlayer == player1)? player2 : player1;
             gameplay.makeMove();
         }
