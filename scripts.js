@@ -18,7 +18,9 @@ let gameplay = (function() {
 
     function startGame(){
         function initializePlayers(){
-            players[0].piece = 'm';
+            player1 = players[0];
+            player2 = players[1];
+            players[0].piece = 'X';
             players[1].piece = 'O';
             currentPlayer = player1;
         }
@@ -39,14 +41,13 @@ let gameplay = (function() {
         if (!!gameboard.board[row][col]) {
             console.log(`There is already a ${gameboard.board[row][col]} there.\nPick another spot`);
         } else {
-            gameboard.board[row][col] = this.piece || 'G'; //sub G for player piece
+            gameboard.board[row][col] = currentPlayer.piece; 
             makeBoard.clearBoard();
             checkWin();
         }
     }
 
     function checkWin() {
-        this.piece = 'G'; //sub G for player piece
 
         const checkStraight = () => {
             lines = []
@@ -59,43 +60,45 @@ let gameplay = (function() {
                 }
                 lines.push(lineRow, lineCol);
             }
-            return lines.some(line => line.every(val => val == this.piece))
+            return lines.some(line => line.every(val => val == currentPlayer.piece))
         }
         
         const checkDiag = () => {
             return (
-                (this.piece == gameboard.board[0][0] && 
-                this.piece == gameboard.board[1][1] &&
-                this.piece == gameboard.board[2][2]
+                (currentPlayer.piece == gameboard.board[0][0] && 
+                currentPlayer.piece == gameboard.board[1][1] &&
+                currentPlayer.piece == gameboard.board[2][2]
                 ) ||
-                (this.piece == gameboard.board[0][2] && 
-                this.piece == gameboard.board[1][1] &&
-                this.piece == gameboard.board[2][0]
+                (currentPlayer.piece == gameboard.board[0][2] && 
+                currentPlayer.piece == gameboard.board[1][1] &&
+                currentPlayer.piece == gameboard.board[2][0]
                 )
             )
         }
 
         if (checkDiag() || checkStraight()) {
-            console.log('you won');
+            console.log(`${currentPlayer.name} won!`);
+            console.log(currentPlayer)
+            currentPlayer.score += 1;
+            console.log(currentPlayer)
         } else {
-            //currentPlayer = (currentPlayer == player1)? player2 : player1;
+            currentPlayer = (currentPlayer == player1)? player2 : player1;
             gameplay.makeMove();
         }
 
     }
-    return {makeMove, startGame, checkMove}
+    return {makeMove, startGame}
 })();
 
 
 let players = [];
 const player = (name) => {
-    let piece;
     const makeMove = function(row, col) {
         gameplay.makeMove(row, col);
     }
     let score = 0;
 
-    return {name, piece, score, makeMove}
+    return {name, score, makeMove}
 }
 
 
@@ -130,16 +133,14 @@ let makeBoard = (function () {
 
 
 //      TESTS/INITS     \\
-const player1 = player('player1');
-const player2 = player('player2');
-players.push(player1);
-players.push(player2);
+const nima = player('nima');
+const joe = player('joe');
+players.push(nima);
+players.push(joe);
 
 makeBoard.createBoard(); //move
  
-gameplay.makeMove(); //testing
+gameplay.startGame(); //testing
 
 
 //      sampleplayer        //
-const nima = player('nima');
-nima.piece = 'G';
