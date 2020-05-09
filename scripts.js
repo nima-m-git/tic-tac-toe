@@ -3,38 +3,65 @@ const gb = document.getElementById('gameboard');
 
 //          Make Board FF       \\
 let gameboard = (function() {
-    let board = [
-        ['', '', ''],     // 0 1 2
-        ['', '', ''],     // 1
-        ['', '', '']      // 2
-    ];
-    return {board}
+    let board = generateNewBoard();
+
+    function generateNewBoard() {
+        return [
+            ['', '', ''],     // 0 1 2
+            ['', '', ''],     // 1
+            ['', '', '']      // 2
+        ];
+    }
+
+    function displayBoard() {
+        newTable = document.createElement('table');
+        let rowNum = 0;
+        for (let row of board) {
+            let newRow = document.createElement('tr');
+            let colNum = 0;
+            for (let block of row) {
+                let newCell = document.createElement('td');
+                newCell.id = `${rowNum} ${colNum}`;
+                newCell.textContent = block;
+                newRow.appendChild(newCell);
+                colNum = (colNum < 3)? colNum + 1 : 0;
+            }
+            rowNum++
+            newTable.appendChild(newRow);
+            gb.appendChild(newTable);
+        }
+        spots = document.querySelectorAll('td'); // remove from global namespace
+    }
+
+    function clearBoard() {
+        gb.removeChild(newTable); // removes DOM table
+        displayBoard();
+    }
+
+    function resetBoard() {
+        // iteration resets js board
+        for (let i=0; i<3; i++){
+            for (let c=0; c<3; c++) {
+                gameboard.board[i][c] = '';
+            }
+        }
+        clearBoard();
+    }
+
+    return {board, displayBoard, clearBoard, generateNewBoard, resetBoard,} 
 })();
 
 
 
 let gameplay = (function() {
-    let currentPlayer;
-
     function startGame(){
-        function initializePlayers(){
-            player1 = players[0];
-            player2 = players[1];
-            players[0].piece = 'X';
-            players[1].piece = 'O';
-            currentPlayer = player1;
-        }
-        initializePlayers();
-        makeMove(currentPlayer);
-    }
+        player1 = players[0];
+        player2 = players[1];
+        players[0].piece = 'X';
+        players[1].piece = 'O';
+        currentPlayer = player1;
 
-    function makeMove() {
-        spots.forEach((spot) => {
-            let [row, col] = spot.id.split(' ');
-            spot.addEventListener('click', function() {
-                checkMove(row, col);
-            })
-        })        
+        currentPlayer.makeMove();
     }
 
     function checkMove(row, col){
@@ -42,7 +69,7 @@ let gameplay = (function() {
             console.log(`There is already a ${gameboard.board[row][col]} there.\nPick another spot`);
         } else {
             gameboard.board[row][col] = currentPlayer.piece; 
-            makeBoard.clearBoard();
+            gameboard.clearBoard();
             checkWin();
         }
     }
@@ -78,69 +105,45 @@ let gameplay = (function() {
 
         if (checkDiag() || checkStraight()) {
             console.log(`${currentPlayer.name} won!`);
-            console.log(currentPlayer)
             currentPlayer.score += 1;
-            console.log(currentPlayer)
+            console.log([player1.name, player1.score], [player2.name, player2.score]) // updatescore()
         } else {
             currentPlayer = (currentPlayer == player1)? player2 : player1;
-            gameplay.makeMove();
+            currentPlayer.makeMove();
         }
 
     }
-    return {makeMove, startGame}
+    return {startGame, checkMove}
 })();
 
 
 let players = [];
 const player = (name) => {
-    const makeMove = function(row, col) {
-        gameplay.makeMove(row, col);
-    }
     let score = 0;
+
+    const makeMove = function makeMove() {
+        spots.forEach((spot) => {  //remove spots from global
+            let [row, col] = spot.id.split(' ');
+            spot.addEventListener('click', function() {
+                gameplay.checkMove(row, col);
+            })
+        })        
+    }
+
 
     return {name, score, makeMove}
 }
 
 
 
-let makeBoard = (function () {
-    function createBoard(){
-        let rowNum = 0;
-        for (let row of gameboard.board) {
-            let newRow = document.createElement('tr');
-            let colNum = 0;
-            for (let col of row) {
-                let newDiv = document.createElement('td');
-                newDiv.id = `${rowNum} ${colNum}`;
-                newDiv.textContent = col;
-                newRow.appendChild(newDiv);
-                colNum = (colNum < 3)? colNum + 1 : 0;
-            }
-            rowNum++
-            gb.appendChild(newRow);
-        }
-        spots = document.querySelectorAll('td'); //move
-    }
-
-    function clearBoard(){
-        gb.textContent = '';
-        makeBoard.createBoard();
-    }
-
-    return {createBoard, clearBoard,} 
-})();
-
-
-
 //      TESTS/INITS     \\
+gameboard.displayBoard(); //move
+
 const nima = player('nima');
 const joe = player('joe');
 players.push(nima);
 players.push(joe);
 
-makeBoard.createBoard(); //move
- 
-gameplay.startGame(); //testing
 
 
 //      sampleplayer        //
