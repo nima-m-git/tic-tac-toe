@@ -4,14 +4,12 @@ const gb = document.getElementById('gameboard');
 //          Make Board FF       \\
 let gameboard = (function() {
     let board = [
-        [' ', ' ', ' '],     // 0 1 2
-        [' ', ' ', ' '],     // 1
-        [' ', ' ', ' ']      // 2
+        ['', '', ''],     // 0 1 2
+        ['', '', ''],     // 1
+        ['', '', '']      // 2
     ];
     return {board}
 })();
-
-
 
 
 
@@ -40,11 +38,11 @@ let gameplay = (function() {
 
     function checkMove(row, col){
         if (!!gameboard.board[row][col]) {
-            gameboard.board[row][col] = this.piece || 'G';
+            console.log(`There is already a ${gameboard.board[row][col]} there.\nPick another spot`);
+        } else {
+            gameboard.board[row][col] = this.piece || 'G'; //remove G for player piece
             makeBoard.clearBoard();
             _checkWin();
-        } else {
-            console.log(`There is already a ${gameboard.board[row][col]} there.\nPick another spot`);
         }
     }
 
@@ -84,7 +82,7 @@ let makeBoard = (function () {
             for (let col of row) {
                 let newDiv = document.createElement('td');
                 newDiv.id = `${rowNum} ${colNum}`;
-                newDiv.textContent = col + ' ';
+                newDiv.textContent = col;
                 newRow.appendChild(newDiv);
                 colNum = (colNum < 3)? colNum + 1 : 0;
             }
