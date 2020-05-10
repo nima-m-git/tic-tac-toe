@@ -1,10 +1,11 @@
 const gb = document.getElementById('gameboard');
 const playerDisplay = document.getElementById('players');
-const player1Screen = document.getElementById('player1');
-const player2Screen = document.getElementById('player2');
-const currentPlayerScreen = document.getElementById('currentPlayer');
+const player1Screen = document.getElementById('player1Screen');
+const player2Screen = document.getElementById('player2Screen');
+const currentPlayerScreen = document.getElementById('currentPlayerScreen');
 const winnerScreen = document.getElementById('winnerScreen');
 const messageScreen = document.getElementById('messageScreen');
+const resetButton = document.getElementById('reset');
 
 
 //          Make Board FF       \\
@@ -61,6 +62,8 @@ let gameboard = (function() {
 
 
 //          Gameplay            \\
+let currentPlayer;
+
 let gameplay = (function() {
 
     function startGame(){
@@ -120,7 +123,7 @@ let gameplay = (function() {
         }
         players.updatePlayerScreen();
     }
-    return {startGame, checkMove, }
+    return {startGame, checkMove,}
 })();
 
 
@@ -154,20 +157,12 @@ let players = (function() {
         return {name, score, makeMove,}
     }
 
-    const firstPlayer = () => {
+    const playerChoice = (choice) => {
         player1 = player(prompt('Enter first player\'s name') || 'player1');
+        player2 = (choice == 'human')? player(prompt('Enter second player\'s name') || 'player2') :
+            player('Computer', computer=true);
+        resetButton.textContent = 'Reset';
     }
-
-    const twoPlayer = () => {
-        firstPlayer();
-        player2 = player(prompt('Enter second player\'s name') || 'player2');
-    }
-
-    const computerPlayer = () => {
-        firstPlayer();
-        player2 = player('Computer', computer=true);
-    }
-
 
     const updatePlayerScreen = () => {
         player1Screen.textContent = `Player: ${player1.name} Piece: ${player1.piece} Score: ${player1.score}`;
@@ -175,7 +170,7 @@ let players = (function() {
         currentPlayerScreen.textContent = `Current Player: ${currentPlayer.name}`;
     }
     
-    return {player, twoPlayer, updatePlayerScreen, computerPlayer,}
+    return {player, playerChoice, updatePlayerScreen, }
 })();
 
 
@@ -185,5 +180,5 @@ let players = (function() {
 //      TESTS/INITS     \\
 gameboard.displayBoard(); //move
 
-players.computerPlayer();
+
 
