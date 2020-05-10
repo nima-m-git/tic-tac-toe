@@ -6,9 +6,17 @@
     </head>
 
     <body>
+        <div id='display'>
+            <div id='players'>
+                <div id='player1'></div>
+                <div id='player2'></div>
+                <div id='currentPlayer'></div>
+            </div>
+        </div>
         <div id='gameboard'></div>
-        <button id='play' onclick="gameplay.startGame()">Play</button>
-        <button id='reset' onclick="gameboard.resetBoard()">Reset</button>
+        <button id='reset' onclick="gameplay.startGame()">Reset</button>
+        <h4 id='messageScreen'></h4>
+        <h3 id='winnerScreen'></h3>
     </body>
 
     <script src='scripts.js'></script>

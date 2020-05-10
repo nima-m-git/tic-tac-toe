@@ -1,4 +1,10 @@
 const gb = document.getElementById('gameboard');
+const playerDisplay = document.getElementById('players');
+const player1Screen = document.getElementById('player1');
+const player2Screen = document.getElementById('player2');
+const currentPlayerScreen = document.getElementById('currentPlayer');
+const winnerScreen = document.getElementById('winnerScreen');
+const messageScreen = document.getElementById('messageScreen');
 
 
 //          Make Board FF       \\
@@ -30,6 +36,7 @@ let gameboard = (function() {
             newTable.appendChild(newRow);
             gb.appendChild(newTable);
         }
+        messageScreen.textContent = '';
         spots = document.querySelectorAll('td'); // remove from global namespace
     }
 
@@ -46,27 +53,28 @@ let gameboard = (function() {
             }
         }
         clearBoard();
+        winnerScreen.textContent = '';
     }
 
     return {board, displayBoard, clearBoard, generateNewBoard, resetBoard,} 
 })();
 
 
-
+//          Gameplay            \\
 let gameplay = (function() {
-    function startGame(){
-        player1 = players[0];
-        player2 = players[1];
-        players[0].piece = 'X';
-        players[1].piece = 'O';
-        currentPlayer = player1;
 
+    function startGame(){
+        gameboard.resetBoard();
+        player1.piece = (player1.piece == 'O')? 'X' : 'O';
+        player2.piece = (player2.piece == 'X')? 'O' : 'X';
+        currentPlayer = (!currentPlayer || currentPlayer == player2)? player1 : player2;
+        players.updatePlayerScreen();
         currentPlayer.makeMove();
     }
 
     function checkMove(row, col){
         if (!!gameboard.board[row][col]) {
-            console.log(`There is already a ${gameboard.board[row][col]} there.\nPick another spot`);
+            messageScreen.textContent = `There is already a ${gameboard.board[row][col]} there ${currentPlayer.name}!\nPick another spot`;
         } else {
             gameboard.board[row][col] = currentPlayer.piece; 
             gameboard.clearBoard();
@@ -104,46 +112,55 @@ let gameplay = (function() {
         }
 
         if (checkDiag() || checkStraight()) {
-            console.log(`${currentPlayer.name} won!`);
             currentPlayer.score += 1;
-            console.log([player1.name, player1.score], [player2.name, player2.score]) // updatescore()
+            winnerScreen.textContent = `${currentPlayer.name} won!`;
         } else {
             currentPlayer = (currentPlayer == player1)? player2 : player1;
             currentPlayer.makeMove();
         }
-
+        players.updatePlayerScreen();
     }
-    return {startGame, checkMove}
+    return {startGame, checkMove, }
 })();
 
 
-let players = [];
-const player = (name) => {
-    let score = 0;
+//          Players         \\
 
-    const makeMove = function makeMove() {
-        spots.forEach((spot) => {  //remove spots from global
-            let [row, col] = spot.id.split(' ');
-            spot.addEventListener('click', function() {
-                gameplay.checkMove(row, col);
-            })
-        })        
+let players = (function() {
+
+    const player = (name) => {
+        let score = 0;
+        const makeMove = () => {
+            spots.forEach((spot) => {  //remove spots from global
+                let [row, col] = spot.id.split(' ');
+                spot.addEventListener('click', function() {
+                    gameplay.checkMove(row, col);
+                })
+            })        
+        }
+        return {name, score, makeMove,}
     }
 
+    const twoPlayer = () => {
+        player1 = player(prompt('Enter first player\'s name') || 'player1');
+        player2 = player(prompt('Enter second player\'s name') || 'player2');
+    }
 
-    return {name, score, makeMove}
-}
+    const updatePlayerScreen = () => {
+        player1Screen.textContent = `Player: ${player1.name} Piece: ${player1.piece} Score: ${player1.score}`;
+        player2Screen.textContent = `Player: ${player2.name} Piece: ${player2.piece} Score: ${player2.score}`;
+        currentPlayerScreen.textContent = `Current Player: ${currentPlayer.name}`;
+    }
+    
+    return {player, twoPlayer, updatePlayerScreen,}
+})();
+
+players.twoPlayer();
 
 
 
 //      TESTS/INITS     \\
 gameboard.displayBoard(); //move
 
-const nima = player('nima');
-const joe = player('joe');
-players.push(nima);
-players.push(joe);
 
 
-
-//      sampleplayer        //
