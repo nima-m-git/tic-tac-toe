@@ -191,9 +191,9 @@ let players = (function() {
 //      TESTS/INITS     \\
 gameboard.displayBoard(); //move
 
-player1 = players.player('nima');
-player2 = players.player('computer', computer=true);
-resetButton.textContent = 'Reset';
+// player1 = players.player('nima');
+// player2 = players.player('computer', computer=true);
+// resetButton.textContent = 'Reset';
 
-gameplay.startGame();
+// gameplay.startGame();
 
