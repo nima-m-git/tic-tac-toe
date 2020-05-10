@@ -78,7 +78,7 @@ let gameplay = (function() {
 
     function checkMove(row, col){
         if (!!gameboard.board[row][col]) {
-            messageScreen.textContent = `There is already a ${gameboard.board[row][col]} there ${currentPlayer.name}!\nPick another spot`;
+            messageScreen.textContent = `There is already an ${gameboard.board[row][col]} there ${currentPlayer.name}!\nPick another spot`;
         } else {
             gameboard.board[row][col] = currentPlayer.piece; 
             gameboard.clearBoard();
@@ -158,7 +158,9 @@ let players = (function() {
                 })
                 let randomSpot = availSpots[(Math.floor(Math.random() * availSpots.length))];
                 let [row, col] = randomSpot;
-                gameplay.checkMove(row, col);
+                setTimeout(function() {
+                    gameplay.checkMove(row, col)
+                }, 1000);
             }
                    
         }
