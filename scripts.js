@@ -41,12 +41,12 @@ let gameboard = (function() {
     }
 
     function clearBoard() {
-        gb.removeChild(newTable); // removes DOM table
+        gb.removeChild(newTable); // removes DOM board
         displayBoard();
     }
 
     function resetBoard() {
-        // iteration resets js board
+        // resets js board
         for (let i=0; i<3; i++){
             for (let c=0; c<3; c++) {
                 gameboard.board[i][c] = '';
@@ -127,24 +127,47 @@ let gameplay = (function() {
 //          Players         \\
 
 let players = (function() {
-
-    const player = (name) => {
+    const player = (name, computer=false) => {
         let score = 0;
         const makeMove = () => {
-            spots.forEach((spot) => {  //remove spots from global
-                let [row, col] = spot.id.split(' ');
-                spot.addEventListener('click', function() {
-                    gameplay.checkMove(row, col);
+            if (!computer) {
+                spots.forEach((spot) => {  //remove spots from global
+                    let [row, col] = spot.id.split(' ');
+                    spot.addEventListener('click', function() {
+                        gameplay.checkMove(row, col);
+                    })
+                }) 
+            } else {
+                let availSpots = [];
+                spots.forEach((spot) => {
+                    let [row, col] = spot.id.split(' ');
+                    if (!spot.textContent) {
+                        availSpots.push([row, col]);
+                    }
                 })
-            })        
+                let randomSpot = availSpots[(Math.floor(Math.random() * availSpots.length))];
+                let [row, col] = randomSpot;
+                gameplay.checkMove(row, col);
+            }
+                   
         }
         return {name, score, makeMove,}
     }
 
-    const twoPlayer = () => {
+    const firstPlayer = () => {
         player1 = player(prompt('Enter first player\'s name') || 'player1');
+    }
+
+    const twoPlayer = () => {
+        firstPlayer();
         player2 = player(prompt('Enter second player\'s name') || 'player2');
     }
+
+    const computerPlayer = () => {
+        firstPlayer();
+        player2 = player('Computer', computer=true);
+    }
+
 
     const updatePlayerScreen = () => {
         player1Screen.textContent = `Player: ${player1.name} Piece: ${player1.piece} Score: ${player1.score}`;
@@ -152,15 +175,15 @@ let players = (function() {
         currentPlayerScreen.textContent = `Current Player: ${currentPlayer.name}`;
     }
     
-    return {player, twoPlayer, updatePlayerScreen,}
+    return {player, twoPlayer, updatePlayerScreen, computerPlayer,}
 })();
 
-players.twoPlayer();
+
 
 
 
 //      TESTS/INITS     \\
 gameboard.displayBoard(); //move
 
-
+players.computerPlayer();
 
