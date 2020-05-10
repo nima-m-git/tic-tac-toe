@@ -172,6 +172,7 @@ let players = (function() {
         player2 = (choice == 'human')? player(prompt('Enter second player\'s name') || 'player2') :
             player('Computer', computer=true);
         resetButton.textContent = 'Reset';
+        gameplay.startGame();
     }
 
     const updatePlayerScreen = () => {
