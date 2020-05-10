@@ -4,26 +4,28 @@
         <meta charset="utf-8" />
         <link rel='stylesheet' type='text/css' href='styles.css'>
     </head>
-    <header>
-        Tic-Tac-Toe
-    </header>
     <body>
-        <div id='display'>
-            <div id='players'>
-                <div id='player1Screen'></div>
-                <div id='player2Screen'></div>
-                <div id='currentPlayerScreen'></div>
+        <div class='page'>
+            <h1>Tic-Tac-Toe</h1>
+            <div id='display'>
+                <div id='players'>
+                    <div id='player1Screen' class='screen'></div>
+                    <div id='player2Screen' class='screen'></div>
+                    <div id='currentPlayerScreen' class='screen'></div>
+                </div>
             </div>
-        </div>
-        <div id='gameboard'></div>
-        <button id='reset' onclick="gameplay.startGame()"></button>
-        <div id='playerChoices'>
-            <button id='twoPlayer' onclick="players.playerChoice('human')">Two Player</button>
-            <button id='computerPlay' onclick="players.playerChoice('computer')">Play Computer</button>
-        </div>
 
-        <h4 id='messageScreen'></h4>
-        <h3 id='winnerScreen'></h3>
+            <div id='gameboard'></div>
+
+            <button id='reset' onclick="gameplay.startGame()"></button>
+            <div id='playerChoices'>
+                <button id='twoPlayer' onclick="players.playerChoice('human')">Two Player</button>
+                <button id='computerPlay' onclick="players.playerChoice('computer')">Play Computer</button>
+            </div>
+
+            <h4 id='messageScreen' class='screen'></h4>
+            <h3 id='winnerScreen' class='screen'></h3>
+        </div>
     </body>
 
     <script src='scripts.js'></script>

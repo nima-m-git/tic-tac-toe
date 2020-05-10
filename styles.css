@@ -1,8 +1,50 @@
+* {
+    background-color: coral;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 td, table {
-    border: 1px solid black;
+    border: 3px solid black;
+}
+
+table {
+    margin-top: 3vw;
+    margin-bottom: 2vw;
 }
 
 td {
-    width: 20px;
-    height: 20px;
+    width: 10vw;
+    height: 10vw;
+    text-align: center;
+    font-size: 8vw;
+
+    background-color: rgb(233, 208, 95);
+}
+
+button {
+    background-color: rgb(204, 168, 50);
+    font-size: large;
+    margin: 0.5vw;
+    color: rgb(0, 29, 156);
+    font-weight: 600;
+}
+
+.screen {
+    font-size: large;
+    margin: 1vw;
+    font-weight: 800;
+    text-transform: capitalize;
+}
+
+h1 {
+    font-size: 8vw;
+    color: rgb(0, 29, 156);
+    font-family: fantasy;
+    margin: auto;
 }
