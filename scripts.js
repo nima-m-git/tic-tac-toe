@@ -3,6 +3,7 @@ const playerDisplay = document.getElementById('players');
 const player1Screen = document.getElementById('player1Screen');
 const player2Screen = document.getElementById('player2Screen');
 const currentPlayerScreen = document.getElementById('currentPlayerScreen');
+const currentPieceScreen = document.getElementById('currentPieceScreen');
 const winnerScreen = document.getElementById('winnerScreen');
 const messageScreen = document.getElementById('messageScreen');
 const resetButton = document.getElementById('reset');
@@ -85,6 +86,11 @@ let gameplay = (function() {
         }
     }
 
+    function checkTie() {
+        const spotFilled = (spot) => (spot.textContent == 'X' || spot.textContent == 'O');
+        return Array.from(spots).every(spotFilled)
+    }
+
     function checkWin() {
 
         const checkStraight = () => {
@@ -117,6 +123,8 @@ let gameplay = (function() {
         if (checkDiag() || checkStraight()) {
             currentPlayer.score += 1;
             winnerScreen.textContent = `${currentPlayer.name} won!`;
+        } else if (checkTie()) {
+            winnerScreen.textContent = 'Draw!'
         } else {
             currentPlayer = (currentPlayer == player1)? player2 : player1;
             currentPlayer.makeMove();
@@ -165,9 +173,10 @@ let players = (function() {
     }
 
     const updatePlayerScreen = () => {
-        player1Screen.textContent = `Player: ${player1.name} Piece: ${player1.piece} Score: ${player1.score}`;
-        player2Screen.textContent = `Player: ${player2.name} Piece: ${player2.piece} Score: ${player2.score}`;
+        player1Screen.textContent = `${player1.name} Score: ${player1.score}`;
+        player2Screen.textContent = `${player2.name} Score: ${player2.score}`;
         currentPlayerScreen.textContent = `Current Player: ${currentPlayer.name}`;
+        currentPieceScreen.textContent = `Piece: ${currentPlayer.piece}`;
     }
     
     return {player, playerChoice, updatePlayerScreen, }

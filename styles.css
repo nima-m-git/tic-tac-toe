@@ -1,6 +1,6 @@
 * {
     background-color: coral;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .page {
@@ -16,6 +16,7 @@ td, table {
 table {
     margin-top: 3vw;
     margin-bottom: 2vw;
+    background-color: blue;
 }
 
 td {
@@ -23,16 +24,18 @@ td {
     height: 10vw;
     text-align: center;
     font-size: 8vw;
-
-    background-color: rgb(233, 208, 95);
+    background-color: rgb(236, 206, 69);
 }
 
 button {
-    background-color: rgb(204, 168, 50);
+    background-color: rgba(231, 195, 76, 0.87);
+    border: 2px solid black;
     font-size: large;
     margin: 0.5vw;
+    padding: 3vw;
     color: rgb(0, 29, 156);
     font-weight: 600;
+    border-radius: 5px;
 }
 
 .screen {
@@ -45,6 +48,9 @@ button {
 h1 {
     font-size: 8vw;
     color: rgb(0, 29, 156);
-    font-family: fantasy;
     margin: auto;
+}
+
+#winnerScreen {
+    font-size: 5vw;
 }
