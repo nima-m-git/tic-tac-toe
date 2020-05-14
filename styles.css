@@ -13,6 +13,7 @@ body {
     flex-direction: column;
     align-items: center;
     width: 80vw;
+    animation: fadeIn 4s ease;
 }
 
 td, table {
@@ -59,7 +60,6 @@ td:hover {
 td:active {
     transform: scale(0.9);
     border-color: blue;
-    background-color: blue;
 }
 
 button {
@@ -71,6 +71,7 @@ button {
     color: rgb(3, 36, 180);
     font-weight: 600;
     border-radius: 5px;
+    animation: fadeIn 5s;
 }
 
 button:hover {
@@ -88,10 +89,12 @@ button:active {
     text-transform: capitalize;
 }
 
+/*  Title */
 h1 {
     font-size: 9vw;
     color: rgb(0, 29, 156);
     margin: auto;
+    animation: fadeIn 3s;
 }
 
 #winnerScreen {
@@ -104,7 +107,7 @@ h1 {
 
 /* Spin the board */
 @keyframes spin {
-    50% {transform: scale(0.4) rotate(2160deg);}
+    40% {transform: scale(0.4) rotate(2160deg);}
     75% {transform: scale(1.4);}
     100% {transform: scale(1.0);}
 }
@@ -122,3 +125,10 @@ h1 {
     0% {color: yellow; background-color: blue;}
     50% {color: blue; background-color: yellow;}
 }
+
+/* Fade in page load */
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+  }
+

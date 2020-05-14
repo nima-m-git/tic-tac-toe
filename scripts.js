@@ -94,6 +94,7 @@ let gameplay = (function() {
         currentPlayer = (!currentPlayer || currentPlayer == player2)? player1 : player2;
         players.updatePlayerScreen();
         currentPlayer.makeMove();
+        resetButton.style.display = '';
     }
 
     function checkMove(row, col){
