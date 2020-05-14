@@ -35,6 +35,11 @@ td {
     color: rgb(1, 23, 124);
 }
 
+.spin {
+    animation: spin 5s;
+    animation-timing-function: ease-out;
+}
+
 td:hover {
     background-color: rgba(197, 183, 118, 0.918);
 }
@@ -82,4 +87,10 @@ h1 {
 
 .messages {
     text-align: center;
+}
+
+/* Spin the board */
+@keyframes spin {
+    50% {transform: scale(0.4) rotate(2160deg);}
+    75% {transform: scale(1.4);}
 }

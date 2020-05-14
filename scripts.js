@@ -123,6 +123,10 @@ let gameplay = (function() {
         if (checkDiag() || checkStraight()) {
             currentPlayer.score += 1;
             winnerScreen.textContent = `${currentPlayer.name} won!`;
+            gb.classList.toggle('spin');
+            console.log('spinning?')
+            setTimeout(function() {gb.classList.toggle('spin');}, 5000);
+
         } else if (checkTie()) {
             winnerScreen.textContent = 'Draw!'
         } else {
