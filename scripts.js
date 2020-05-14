@@ -9,6 +9,7 @@ const messageScreen = document.getElementById('messageScreen');
 const resetButton = document.getElementById('reset');
 
 
+
 //          Make Board FF       \\
 let gameboard = (function() {
     let board = generateNewBoard();
@@ -58,7 +59,26 @@ let gameboard = (function() {
         winnerScreen.textContent = '';
     }
 
-    return {board, displayBoard, clearBoard, generateNewBoard, resetBoard,} 
+    function winimation() {
+        winnerScreen.textContent = `${currentPlayer.name} won!`;
+
+        function toggle() {
+            spots.forEach((piece) => {
+            piece.classList.toggle('pieceFlash');
+            })
+            gb.classList.toggle('spin');
+        };
+        toggle();
+
+        setTimeout(function() {
+            toggle();
+        }, 5000);
+
+        winnerScreen.classList.toggle('flash');
+        setTimeout(function() {winnerScreen.classList.toggle('flash');}, 20000);
+    }
+
+    return {board, displayBoard, clearBoard, generateNewBoard, resetBoard, winimation} 
 })();
 
 
@@ -69,8 +89,8 @@ let gameplay = (function() {
 
     function startGame(){
         gameboard.resetBoard();
-        player1.piece = (player1.piece == 'O')? 'X' : 'O';
-        player2.piece = (player2.piece == 'X')? 'O' : 'X';
+        player1.piece = (player1.piece == 'X')? 'O' : 'X';
+        player2.piece = (player2.piece == 'O')? 'X' : 'O';
         currentPlayer = (!currentPlayer || currentPlayer == player2)? player1 : player2;
         players.updatePlayerScreen();
         currentPlayer.makeMove();
@@ -122,11 +142,7 @@ let gameplay = (function() {
 
         if (checkDiag() || checkStraight()) {
             currentPlayer.score += 1;
-            winnerScreen.textContent = `${currentPlayer.name} won!`;
-            gb.classList.toggle('spin');
-            console.log('spinning?')
-            setTimeout(function() {gb.classList.toggle('spin');}, 5000);
-
+            gameboard.winimation();
         } else if (checkTie()) {
             winnerScreen.textContent = 'Draw!'
         } else {

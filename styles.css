@@ -32,12 +32,24 @@ td {
     font-size: 8vw;
     font-weight: 800;
     background-color: rgb(236, 206, 69);
-    color: rgb(1, 23, 124);
+    color: rgb(0, 0, 194);
 }
 
 .spin {
     animation: spin 5s;
+    animation-delay: 0.5s;
     animation-timing-function: ease-out;
+    background-color: transparent;
+}
+
+.flash {
+    animation: flash linear 0.3s infinite;
+    background-color: transparent;
+}
+
+.pieceFlash {
+    animation: pieceFlash linear 0.5s infinite;
+    animation-delay: 0.5s;
 }
 
 td:hover {
@@ -47,6 +59,7 @@ td:hover {
 td:active {
     transform: scale(0.9);
     border-color: blue;
+    background-color: blue;
 }
 
 button {
@@ -93,4 +106,19 @@ h1 {
 @keyframes spin {
     50% {transform: scale(0.4) rotate(2160deg);}
     75% {transform: scale(1.4);}
+    100% {transform: scale(1.0);}
+}
+
+/* Flash Winner */
+@keyframes flash {
+    0% {color: blue; transform: scale(1.2);}
+    25% {color: yellow;}
+    50% {color: black; transform: scale(0.8);}
+    75% {color: yellow;}
+    100% {color: blue; transform: scale(1.2);}
+}
+
+@keyframes pieceFlash {
+    0% {color: yellow; background-color: blue;}
+    50% {color: blue; background-color: yellow;}
 }
