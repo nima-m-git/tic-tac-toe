@@ -92,9 +92,14 @@ button:active {
 /*  Title */
 h1 {
     font-size: 9vw;
-    color: rgb(0, 29, 156);
     margin: auto;
-    animation: fadeIn 3s;
+    animation: fadeIn 3s, flow 3s linear infinite; 
+    background: linear-gradient(-90deg, blue 0%, rgb(5, 199, 5) 40%, yellow 60%, green 80%, blue 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200%;
+
 }
 
 #winnerScreen {
@@ -132,3 +137,16 @@ h1 {
     100% {opacity: 1;}
   }
 
+/*  Color flow */
+@keyframes flow {
+    /* 0% {background-position: 0 50%;}
+    25% {background-position: 25% 75%;}
+    50% {background-position: 50% 100%;}
+    100% {background-position: 75% 0;} */
+    from {
+        background-position: 0%;
+    }
+    to {
+        background-position: 200%;
+    }
+}
