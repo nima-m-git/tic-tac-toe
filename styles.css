@@ -93,6 +93,7 @@ button:active {
     margin: 1vw;
     font-weight: 800;
     text-transform: capitalize;
+    color: blue;
 }
 
 /*  Title */
@@ -111,8 +112,9 @@ h1 {
     font-size: 5vw;
 }
 
-.messages {
+.messages, .infoboard {
     text-align: center;
+    color: blue;
 }
 
 /* Spin the board */
