@@ -1,11 +1,17 @@
-* {
-    background-color: coral;
-    font-family: 'Courier New', Courier, monospace;
+html {
+    height: 100%;
 }
+
 body {
+    height: 100%;
+    background-repeat: no-repeat;
+    margin: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-around;
+    background-image: linear-gradient(to bottom right, yellow, rgb(255, 72, 0));
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .page {
@@ -32,7 +38,7 @@ td {
     text-align: center;
     font-size: 8vw;
     font-weight: 800;
-    background-color: rgb(236, 206, 69);
+    background-color: rgb(255, 192, 20);
     color: rgb(0, 0, 194);
 }
 
@@ -63,9 +69,9 @@ td:active {
 }
 
 button {
-    background-color: rgba(241, 205, 83, 0.87);
+    background-color:rgb(255, 192, 20);
     border: 2px solid black;
-    font-size: 2.5vw;
+    font-size:  1em;
     margin: 0.5vw;
     padding: 2vw 2vw;
     color: rgb(3, 36, 180);
@@ -93,13 +99,12 @@ button:active {
 h1 {
     font-size: 9vw;
     margin: auto;
-    animation: fadeIn 3s, flow 3s linear infinite; 
-    background: linear-gradient(-90deg, blue 0%, rgb(5, 199, 5) 40%, yellow 60%, green 80%, blue 100%);
+    animation: fadeIn 3s, flow 4s linear infinite; 
+    background: linear-gradient(-60deg, blue 0%, rgb(5, 199, 5) 20%,  purple 50%, blue 100%);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-size: 200%;
-
 }
 
 #winnerScreen {
@@ -120,15 +125,15 @@ h1 {
 /* Flash Winner */
 @keyframes flash {
     0% {color: blue; transform: scale(1.2);}
-    25% {color: yellow;}
+    25% {color: rgb(255, 192, 20);}
     50% {color: black; transform: scale(0.8);}
-    75% {color: yellow;}
+    75% {color: rgb(255, 192, 20);}
     100% {color: blue; transform: scale(1.2);}
 }
 
 @keyframes pieceFlash {
-    0% {color: yellow; background-color: blue;}
-    50% {color: blue; background-color: yellow;}
+    0% {color: rgb(255, 192, 20); background-color: blue;}
+    50% {color: blue; background-color: rgb(255, 192, 20);}
 }
 
 /* Fade in page load */
