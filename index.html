@@ -5,32 +5,30 @@
         <link rel='stylesheet' type='text/css' href='styles.css'>
     </head>
     <body>
+        <header>
+            <h1>Tic-Tac-Toe</h1>
+        </header>
         <div class='wrapper'>
-            <header>
-                <h1>Tic-Tac-Toe</h1>
-            </header>
-            <div class='page'>
-                <div class='infoBoard'>
-                    <div id='player1Screen' class='screen'></div>
-                    <div id='player2Screen' class='screen'></div>
-                </div>
-                <div id='currentScreen'>
-                    <div id='currentPlayerScreen' class='screen'></div>
-                    <div id='currentPieceScreen' class='screen'></div>
-                </div>
-    
-                <div id='gameboard'></div>
-    
-                <div class='messages'>
-                    <div id='messageScreen' class='screen'></div>
-                    <div id='winnerScreen' class='screen'></div>
-                </div>
-    
-                <button id='reset' onclick="gameplay.startGame()" style="display: none;"></button>
-                <div id='playerChoices'>
-                    <button id='twoPlayer' onclick="players.playerChoice('human')">Two Player</button>
-                    <button id='computerPlay' onclick="players.playerChoice('computer')">Play Computer</button>
-                </div>
+            <div class='infoBoard'>
+                <div id='player1Screen' class='screen'></div>
+                <div id='player2Screen' class='screen'></div>
+            </div>
+            <div id='currentScreen'>
+                <div id='currentPlayerScreen' class='screen'></div>
+                <div id='currentPieceScreen' class='screen'></div>
+            </div>
+
+            <div id='gameboard'></div>
+
+            <div class='messages'>
+                <div id='messageScreen' class='screen'></div>
+                <div id='winnerScreen' class='screen'></div>
+            </div>
+
+            <button id='reset' onclick="gameplay.startGame()" style="display: none;"></button>
+            <div id='playerChoices'>
+                <button id='twoPlayer' onclick="players.playerChoice('human')">Two Player</button>
+                <button id='computerPlay' onclick="players.playerChoice('computer')">Play Computer</button>
             </div>
         </div>
 
